@@ -14,6 +14,9 @@ input,select {
 	color:#FFFFFF;
 	font-size: 2em;
 }
+#dokuwiki__header p.claim {
+	color:#e0e0e0;
+}
 
 #dokuwiki__content h1,
 #dokuwiki__content h2 {
