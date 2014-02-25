@@ -1,0 +1,2 @@
+* Change .css to .less and add __background_site__ and __background__ replacements support
+* Hide topbar in print.css style
