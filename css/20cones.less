@@ -1,7 +1,7 @@
 /* Dokuwiki custom styles */
 
 body {
-	font-family: Verdana,Geneva,Kalimati,sans-serif;
+	font-family: @ini_body_font;
 	font-size: 82%;
 	color: #333333;
 }
@@ -20,7 +20,7 @@ input,select {
 
 #dokuwiki__content h1,
 #dokuwiki__content h2 {
-	font-family: Arial,Helvetica,sans-serif;
+	font-family: @ini_header_font;
 	font-weight: 100;
 	border-bottom: dotted 1px #888888;
 	text-shadow: 1px 1px 1px #cccccc;
@@ -117,6 +117,9 @@ div.notify a {
 	float: left;
 	display: block;
 	border-radius: 5px 0px 0px 5px;
+}
+
+#dokuwiki__header a.tab-home {
 	background-color:rgb(54, 58, 62);
 }
 
@@ -131,6 +134,12 @@ div.notify a {
 	font: bold 1.1em Arial,Helvetica,sans-serif;
 	background: none repeat scroll 0% 0% transparent;
 	list-style: none outside none;
+}
+
+#tab-menu li a:hover {
+	background: url("images/hover.png") repeat-x scroll center top #616770;
+    color: #fff;
+	border-radius: 5px;
 }
 
 #tab-menu li a {
@@ -183,7 +192,7 @@ div.notify a {
  
 /* Tablet */
  
-@media (max-width: 800px) {
+@media (max-width: @ini_tablet_width) {
   #dokuwiki__aside {
 	width: auto;
 	float: none;
@@ -197,7 +206,7 @@ div.notify a {
 
 }
 /* Phone */
-@media (max-width: 480px) {
+@media (max-width: @ini_phone_width) {
 	#top-tabs {
 		overflow:hidden;
 	}

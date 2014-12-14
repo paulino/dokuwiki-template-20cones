@@ -21,14 +21,15 @@ if (!defined('DOKU_INC')) die();
             // get logo either out of the template images folder or data/media folder
             $logoSize = array();
             $logo = tpl_getMediaFile(array(':wiki:logo.png', ':logo.png', 'images/logo.png'), false, $logoSize);
-
+            
             // display logo and wiki title in a link to the home page
+            // @20cones-template@ : Title is optional in this template            
             if (tpl_getConf("20cones_showdokutitle"))
               tpl_link(
                 wl(),
                 '<img src="'.$logo.'" '.$logoSize[3].' alt="" /> <span>'.$conf['title'].'</span>',
                 'accesskey="h" title="[H]"'
-                );
+            );
             else
               tpl_link(
                 wl(),
@@ -59,11 +60,8 @@ if (!defined('DOKU_INC')) die();
                         tpl_action('login', 1, 'li');
                     ?>
                 </ul>
-          
-                
             </div>
         <?php endif ?>
-
 
         <!-- SITE TOOLS -->
         <div id="dokuwiki__sitetools">
@@ -72,22 +70,23 @@ if (!defined('DOKU_INC')) die();
             <div class="mobileTools">
                 <?php tpl_actiondropdown($lang['tools']); ?>
             </div>
-        <!-- TRANSLATION PLUGIN -->
-        <?php $translation = &plugin_load('helper','translation');
-              if ($translation) echo $translation->showTranslations(); ?>  
+            
+            <!-- TRANSLATION PLUGIN - @20cones-template@ -->
+            <?php $translation = &plugin_load('helper','translation');
+                if ($translation) echo $translation->showTranslations(); ?>  
             
             <ul>
                 <?php
                     tpl_action('recent', 1, 'li');
                     tpl_action('media', 1, 'li');
                     tpl_action('index', 1, 'li');
-                ?>                
+                ?>
             </ul>
-    
         </div>
+
     </div>
     
-    <!-- TOPBAR -->
+    <!-- TOPBAR - @20cones-template@ -->
     <div class="topbar">
       <?php if (tpl_getConf("20cones_htmltopbar"))
                tpl_includeFile('topbar.html');

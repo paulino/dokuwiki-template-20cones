@@ -1,7 +1,7 @@
 base     20cones
 author   Paulino Ruiz de Clavijo Vázquez
 email    paulino@dte.us.es
-date     2014-02-01
+date     2014-12-14
 name     20Cones Template
 desc     Template with topbar support
 url      http://www.dokuwiki.org/template:20cones

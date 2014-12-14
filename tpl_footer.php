@@ -16,7 +16,6 @@ if (!defined('DOKU_INC')) die();
             tpl_license('button', true, false, false); // license button, no wrapper
             $target = ($conf['target']['extern']) ? 'target="'.$conf['target']['extern'].'"' : '';
         ?>
-
         <a href="http://validator.w3.org/check/referer" title="Valid HTML5" <?php echo $target?>><img
             src="<?php echo tpl_basedir(); ?>images/button-html5.png" width="80" height="15" alt="Valid HTML5" /></a>
         <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3" title="Valid CSS" <?php echo $target?>><img
