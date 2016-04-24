@@ -4,7 +4,7 @@
 
 You can see a demo in <http://www.20cones.org>
 
-Adicional documentacion for this template is avaliable at 
+Additional documentation for this template is avaliable at 
 <http://dokuwiki.org/template:20cones>
 
 (c) 2014 by Paulino Ruiz de Clavijo Vázquez <paulino@dte.us.es> 
@@ -23,13 +23,14 @@ See COPYING for license info.
 
 ### Topbar
 
-Default the topbar is rendered from **topbar.html** file. 
+By default, the topbar is rendered from the file **topbar.html**.
 If you wish, a wiki page can be used as **topbar**. 
 Use the DokuWiki configuration manager to select this option.
  
-When wiki page is used, the plugin Traslation can be used to localize the topbar
-page. For traslations you must create several topbar pages, one for each 
-language using namespaces (es:topbar, en:topbar, etc..) 
+When wiki page is used, the plugin **Translation** can be used to localize the topbar
+page. For translations you must create several topbar pages, using one namespace for
+each language (e.g. es:topbar, en:topbar, ...)
+
  
 ## Changes in Default template
 
@@ -37,9 +38,9 @@ List of modifications for future easier maintenance
 
   * **tpl_header.php**: 
 
-   * L26: Added code to show/hide H1 text after logo image
-   * L74: Added plugin Traslation code
-   * L90: Added custom topbar code
+   * L25: Added code to show/hide H1 text after logo image
+   * L75: Added plugin Translation code
+   * L91: Added custom topbar code
 
 
   * **top_footer.php**: Removed some footer icons
