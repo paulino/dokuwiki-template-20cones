@@ -9,7 +9,6 @@
 
 // must be run from within DokuWiki
 if (!defined('DOKU_INC')) die();
-header('X-UA-Compatible: IE=edge,chrome=1');
 
 ?><!DOCTYPE html>
 <html lang="<?php echo $conf['lang']?>" dir="<?php echo $lang['direction'] ?>" class="no-js">
@@ -27,7 +26,6 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 </head>
 
 <body>
-    <!--[if lte IE 7 ]><div id="IE7"><![endif]--><!--[if IE 8 ]><div id="IE8"><![endif]-->
     <div id="dokuwiki__site"><div id="dokuwiki__top" class="site <?php echo tpl_classes(); ?>">
 
         <?php include('tpl_header.php') ?>
@@ -35,7 +33,8 @@ header('X-UA-Compatible: IE=edge,chrome=1');
         <div class="wrapper group" id="dokuwiki__detail">
 
             <!-- ********** CONTENT ********** -->
-            <div id="dokuwiki__content"><div class="pad group">
+            <main id="dokuwiki__content"><div class="pad group">
+                <?php html_msgarea() ?>
 
                 <?php if(!$ERROR): ?>
                     <div class="pageId"><span><?php echo hsc(tpl_img_getTag('IPTC.Headline',$IMG)); ?></span></div>
@@ -56,6 +55,20 @@ header('X-UA-Compatible: IE=edge,chrome=1');
 
                         <div class="img_detail">
                             <?php tpl_img_meta(); ?>
+                            <dl>
+                            <?php
+                            echo '<dt>'.$lang['reference'].':</dt>';
+                            $media_usage = ft_mediause($IMG,true);
+                            if(count($media_usage) > 0){
+                                foreach($media_usage as $path){
+                                    echo '<dd>'.html_wikilink($path).'</dd>';
+                                }
+                            }else{
+                                echo '<dd>'.$lang['nothingfound'].'</dd>';
+                            }
+                            ?>
+                            </dl>
+                            <p><?php echo $lang['media_acl_warning']; ?></p>
                         </div>
                         <?php //Comment in for Debug// dbg(tpl_img_getTag('Simple.Raw'));?>
                     <?php endif; ?>
@@ -68,43 +81,24 @@ header('X-UA-Compatible: IE=edge,chrome=1');
                 <div class="docInfo"><?php tpl_pageinfo(); ?></div>
                 */ ?>
 
-            </div></div><!-- /content -->
+            </div></main><!-- /content -->
 
             <hr class="a11y" />
 
             <!-- PAGE ACTIONS -->
             <?php if (!$ERROR): ?>
-                <div id="dokuwiki__pagetools">
-                    <h3 class="a11y"><?php echo $lang['page_tools']; ?></h3>
+                <nav id="dokuwiki__pagetools" aria-labelledby="dokuwiki__pagetools__heading">
+                    <h3 class="a11y" id="dokuwiki__pagetools__heading"><?php echo $lang['page_tools']; ?></h3>
                     <div class="tools">
                         <ul>
-                            <?php
-                                $data = array(
-                                    'view' => 'detail',
-                                    'items' => array(
-                                        'mediaManager' => tpl_action('mediaManager', 1, 'li', 1, '<span>', '</span>'),
-                                        'img_backto' =>   tpl_action('img_backto',   1, 'li', 1, '<span>', '</span>'),
-                                    )
-                                );
-
-                                // the page tools can be amended through a custom plugin hook
-                                $evt = new Doku_Event('TEMPLATE_PAGETOOLS_DISPLAY', $data);
-                                if($evt->advise_before()) {
-                                    foreach($evt->data['items'] as $k => $html) echo $html;
-                                }
-                                $evt->advise_after();
-                                unset($data);
-                                unset($evt);
-                            ?>
+                            <?php echo (new \dokuwiki\Menu\DetailMenu())->getListItems(); ?>
                         </ul>
                     </div>
-                </div>
+                </nav>
             <?php endif; ?>
         </div><!-- /wrapper -->
 
         <?php include('tpl_footer.php') ?>
     </div></div><!-- /site -->
-
-    <!--[if ( lte IE 7 | IE 8 ) ]></div><![endif]-->
 </body>
 </html>

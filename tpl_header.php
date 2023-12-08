@@ -8,7 +8,8 @@ if (!defined('DOKU_INC')) die();
 ?>
 
 <!-- ********** HEADER ********** -->
-<div id="dokuwiki__header"><div class="pad group">
+<header id="dokuwiki__header"><div class="pad group">
+
 
     <?php tpl_includeFile('header.html') ?>
 
@@ -17,25 +18,25 @@ if (!defined('DOKU_INC')) die();
             <li><a href="#dokuwiki__content"><?php echo $lang['skip_to_content']; ?></a></li>
         </ul>
 
-        <h1><?php
+        <h1 class="logo"><?php
             // get logo either out of the template images folder or data/media folder
             $logoSize = array();
             $logo = tpl_getMediaFile(array(':wiki:logo.png', ':logo.png', 'images/logo.png'), false, $logoSize);
-            
+
             // display logo and wiki title in a link to the home page
             // @20cones-template@ : Title is optional in this template            
-            if (tpl_getConf("20cones_showdokutitle"))
-              tpl_link(
-                wl(),
-                '<img src="'.$logo.'" '.$logoSize[3].' alt="" /> <span>'.$conf['title'].'</span>',
-                'accesskey="h" title="[H]"'
-            );
+            if (tpl_getConf("20cones_showdokutitle"))            
+                tpl_link(
+                    wl(),
+                    '<img src="'.$logo.'" '.$logoSize[3].' alt="" /> <span>'.$conf['title'].'</span>',
+                    'accesskey="h" title="' . tpl_getLang('home') . ' [h]"'
+                );
             else
-              tpl_link(
-                wl(),
-                '<img src="'.$logo.'" '.$logoSize[3].' alt="" />',
-                'accesskey="h" title="[H]"'
-               );
+                tpl_link(
+                    wl(),
+                    '<img src="'.$logo.'" '.$logoSize[3].' alt="" />',
+                    'accesskey="h" title="' . tpl_getLang('home') . ' [h]"'
+            );            
         ?></h1>
         <?php if ($conf['tagline']): ?>
             <p class="claim"><?php echo $conf['tagline']; ?></p>
@@ -43,6 +44,7 @@ if (!defined('DOKU_INC')) die();
     </div>
 
     <div class="tools group">
+
         <!-- USER TOOLS -->
         <?php if ($conf['useacl']): ?>
             <div id="dokuwiki__usertools">
@@ -54,10 +56,7 @@ if (!defined('DOKU_INC')) die();
                             tpl_userinfo(); /* 'Logged in as ...' */
                             echo '</li>';
                         }
-                        tpl_action('admin', 1, 'li');
-                        tpl_action('profile', 1, 'li');
-                        tpl_action('register', 1, 'li');
-                        tpl_action('login', 1, 'li');
+                        echo (new \dokuwiki\Menu\UserMenu())->getListItems('action ');
                     ?>
                 </ul>
             </div>
@@ -68,30 +67,34 @@ if (!defined('DOKU_INC')) die();
             <h3 class="a11y"><?php echo $lang['site_tools']; ?></h3>
             <?php tpl_searchform(); ?>
             <div class="mobileTools">
-                <?php tpl_actiondropdown($lang['tools']); ?>
-            </div>
-            
-            <!-- TRANSLATION PLUGIN - @20cones-template@ -->
-            <?php $translation = &plugin_load('helper','translation');
-                if ($translation) echo $translation->showTranslations(); ?>  
-            
-            <ul>
+                <?php echo (new \dokuwiki\Menu\MobileMenu())->getDropdown($lang['tools']); ?>
+            </div>            
+            <!-- @20cones-template@ : Wrapper for plugin translation -->
+            <div id="plugin_translation_wrapper">                
+                <ul>
+                    <?php echo (new \dokuwiki\Menu\SiteMenu())->getListItems('action ', false); ?>
+                </ul>
                 <?php
-                    tpl_action('recent', 1, 'li');
-                    tpl_action('media', 1, 'li');
-                    tpl_action('index', 1, 'li');
+                    $translation = plugin_load('helper','translation');
+                    if ($translation) echo $translation->showTranslations();
                 ?>
-            </ul>
+             </div>
+
         </div>
 
+
+
+        
+
+
     </div>
-    
+
     <!-- TOPBAR - @20cones-template@ -->
-    <div class="topbar">
+    <div id="topbar">
       <?php if (tpl_getConf("20cones_htmltopbar"))
                tpl_includeFile('topbar.html');
             else
-               tpl_include_page(tpl_getConf("20cones_pagetopbar"),1,1);
+               tpl_includeFile('topbar.php');
                ?>
     </div>
 
@@ -107,7 +110,5 @@ if (!defined('DOKU_INC')) die();
         </div>
     <?php endif ?>
 
-    <?php html_msgarea() ?>
-
     <hr class="a11y" />
-</div></div><!-- /header -->
+</div></header><!-- /header -->

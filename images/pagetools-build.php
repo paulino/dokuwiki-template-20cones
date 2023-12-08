@@ -1,4 +1,5 @@
 <?php
+// phpcs:ignoreFile -- deprecated and will be removed
 /**
  * This script generates a sprite from the unprocessed pagetool icons by combining them
  * and overlaying a color layer for the active state.
@@ -10,10 +11,13 @@
  * The final sprite is optimized with optipng if available.
  *
  * @author Andreas Gohr <andi@splitbrain.org>
+ * @deprecated 2018-06-15 we no longer use PNG based icons
  * @todo   Maybe add some more error checking
  */
 $GAMMA = 0.8;
 $OPTIPNG = '/usr/bin/optipng';
+
+if('cli' != php_sapi_name()) die('please run from commandline');
 
 // load input images
 $input = glob('pagetools/*.png');
@@ -92,7 +96,7 @@ function hex2rgb($hex) {
 /**
  * Scale (darken/lighten) a given image
  *
- * @param ressource $img    The truetype GD image to work on
+ * @param resource $img    The truetype GD image to work on
  * @param float     $scale  Scale the colors by this value ( <1 darkens, >1 lightens)
  */
 function imagecolorscale(&$img, $scale){

@@ -1,12 +1,11 @@
 <?php
-
 /**
  * Default options for the "20cones template" DokuWiki template
  *
  * Read the README for details of howto config this template.
  *
  * @license GPLv2 (http://www.gnu.org/licenses/gpl2.html)
- * @author Paulino Ruiz de Clavijo Vázquez <paulino@dte.us.es>
+ * @author Paulino Ruiz de Clavijo Vázquez <paulino@art-website.com>
  * @link http://www.dokuwiki.org/template:20cones
  */
 
